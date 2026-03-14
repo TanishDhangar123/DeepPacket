@@ -273,14 +273,14 @@ public class DPIEngine {
         writeOutputHeader(reader.getGlobalHeader());
 
         PacketAnalyzer.RawPacket raw = new PacketAnalyzer.RawPacket();
-        PacketAnalyzer.ParsedPacket parsed = new PacketAnalyzer.ParsedPacket();
+        packet_parser.ParsedPacket parsed = new packet_parser.ParsedPacket();
         long packetId = 0;
 
         System.out.println("[Reader] Starting packet processing...");
 
         while (reader.readNextPacket(raw)) {
             // Parse the packet
-            if (!PacketAnalyzer.PacketParser.parse(raw, parsed)) {
+            if (!packet_parser.parse(raw, parsed)) {
                 continue;  // Skip unparseable packets
             }
 
@@ -312,7 +312,7 @@ public class DPIEngine {
     }
 
     private PacketJob createPacketJob(PacketAnalyzer.RawPacket raw,
-                                      PacketAnalyzer.ParsedPacket parsed,
+                                      packet_parser.ParsedPacket parsed,
                                       long packetId) {
         PacketJob job = new PacketJob();
         job.packet_id = packetId;
